@@ -1,122 +1,73 @@
- <!-- <div class="register-form">
-      <h2>Create Account</h2>
-      <p class="subtitle">Join LuckyOne to start participating in contests</p>
-      
-      <form #registerForm="ngForm" (ngSubmit)="onSubmit()">
-        <div class="form-row">
-          <div class="form-group">
-            <label for="firstName">First Name</label>
-            <input
-              type="text"
-              id="firstName"
-              name="firstName"
-              [(ngModel)]="userData.firstName"
-              placeholder="First name"
-              class="form-control"
-            />
-          </div>
-          
-          <div class="form-group">
-            <label for="lastName">Last Name</label>
-            <input
-              type="text"
-              id="lastName"
-              name="lastName"
-              [(ngModel)]="userData.lastName"
-              placeholder="Last name"
-              class="form-control"
-            />
-          </div>
-        </div>
-        
+<div class="register-form">
+  <h2>Create Account</h2>
+  <p class="subtitle">Join LuckyOne to start participating in contests</p>
+
+  <form #registerForm="ngForm" (ngSubmit)="RegisterUser()">
+    <div class="form-row">
         <div class="form-group">
-          <label for="username">Username *</label>
-          <input
-            type="text"
-            id="username"
-            name="username"
-            [(ngModel)]="userData.username"
-            required
-            minlength="3"
-            placeholder="Choose a username"
-            class="form-control"
-          />
+          <label for="username">Username</label>
+          <input type="text" name="username"  [(ngModel)]="user.username" placeholder="Enter Username" class="form-control" required
+            autocomplete="off" />
           <div *ngIf="registerForm.submitted && registerForm.controls['username']?.errors" class="error-message">
             Username must be at least 3 characters
           </div>
         </div>
+
+      <div class="form-group">
+        <label for="Email">Email</label>
+        <input type="email" name="Email" [(ngModel)]="user.email" placeholder="Enter Email" class="form-control" />
+      </div>
+
+      <div class="form-group">
+        <label for="firstName">FirstName</label>
+        <input type="text" name="firstName" [(ngModel)]="user.firstName" placeholder="Enter FirstName"
+          class="form-control" />
+      </div>
+      <div class="form-group">
+        <label for="lastName">LastName</label>
+        <input type="text" name="lastName" [(ngModel)]="user.lastName" placeholder="Enter LastName"
+          class="form-control" />
+      </div>
+     
+      <div class="form-group">
+
+         <img
+          *ngIf="user.avatarImage"
+          [src]="imagePreview"
+          class="img-thumbnail mt-2"
+          width="150"
+        />
         
-        <div class="form-group">
-          <label for="email">Email Address *</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            [(ngModel)]="userData.email"
-            required
-            email
-            placeholder="Enter your email"
-            class="form-control"
-          />
-          <div *ngIf="registerForm.submitted && registerForm.controls['email']?.errors" class="error-message">
-            Please enter a valid email address
-          </div>
-        </div>
-        
-        <div class="form-group">
-          <label for="password">Password *</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            [(ngModel)]="userData.password"
-            required
-            minlength="6"
-            placeholder="Create a password"
-            class="form-control"
-          />
-          <div *ngIf="registerForm.submitted && registerForm.controls['password']?.errors" class="error-message">
-            Password must be at least 6 characters
-          </div>
-        </div>
-        
-        <div class="form-group">
-          <label for="confirmPassword">Confirm Password *</label>
-          <input
-            type="password"
-            id="confirmPassword"
-            name="confirmPassword"
-            [(ngModel)]="confirmPassword"
-            required
-            placeholder="Confirm your password"
-            class="form-control"
-          />
-          <div *ngIf="registerForm.submitted && userData.password !== confirmPassword" class="error-message">
-            Passwords do not match
-          </div>
-        </div>
-        
-        <div class="form-group terms">
-          <input
-            type="checkbox"
-            id="terms"
-            name="terms"
-            [(ngModel)]="acceptedTerms"
-            required
-          />
-          <label for="terms">
-            I agree to the <a href="/terms" target="_blank">Terms of Service</a> and <a href="/privacy" target="_blank">Privacy Policy</a>
-          </label>
-          <div *ngIf="registerForm.submitted && !acceptedTerms" class="error-message">
-            You must accept the terms and conditions
-          </div>
-        </div>
-        
-        <div class="form-group">
-          <button type="submit" class="btn btn-primary" [disabled]="isLoading">
-            <span *ngIf="!isLoading">Create Account</span>
-            <span *ngIf="isLoading">Creating Account...</span>
-          </button>
-        </div>
-      </form>
-    </div> -->
+        <label for="userImage">User Image</label>
+        <input type="file" accept="image/*"  (change)="onFileSelected($event)" name="userImage" [(ngModel)]="user.avatarImage" placeholder="select Image"
+          class="form-control" />
+      </div>
+      <div class="form-group"></div>
+      <div class="form-group">
+        <label for="passwordHash">Password</label>
+        <input type="text" name="passwordHash" [(ngModel)]="user.passwordHash" placeholder="Enter Password"
+          class="form-control" />
+      </div>
+
+      <div class="form-group">
+        <label for="CpasswordHash">Confirm Password</label>
+        <input type="text" name="CpasswordHash" [(ngModel)]="CpasswordHash" placeholder="Confirm Password"
+          class="form-control" autocomplete="off" />
+      </div>
+
+    </div>
+
+    <div class="form-row" >
+  
+        <button type="submit" class="btn btn-primary" [disabled]="isLoading"> Submit </button>
+ 
+    </div>
+    <div >
+ 
+
+</div>
+
+  </form>
+
+
+</div>

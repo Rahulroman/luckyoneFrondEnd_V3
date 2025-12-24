@@ -1,5 +1,47 @@
-<p>auth-layout works!</p>
+<div class="auth-layout">
+      <div class="auth-container">
+        <div class="auth-left">
+          <div class="auth-logo">
+            <a routerLink="/">
+              <img src="assets/images/logo-white.png" alt="LuckyOne" height="50">
+            </a>
+          </div>
+          
+          <div class="auth-content">
+            <h1>Join the Excitement!</h1>
+            <p>Participate in amazing contests and win fantastic prizes. Your luck starts here!</p>
+            
+            <div class="auth-features">
+              <div class="feature">
+                <div class="feature-icon">⚡</div>
+                <div class="feature-text">Instant Contest Joining</div>
+              </div>
+              <div class="feature">
+                <div class="feature-icon">🏆</div>
+                <div class="feature-text">Big Prize Pools</div>
+              </div>
+              <div class="feature">
+                <div class="feature-icon">🔒</div>
+                <div class="feature-text">Secure & Fair Play</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="auth-right">
+          <div class="auth-form-container">
+            <router-outlet></router-outlet>
+            
+            <div class="auth-links">
+              <a *ngIf="isLoginPage" routerLink="/auth/register">Don't have an account? Sign Up</a>
+              <a *ngIf="isRegisterPage" routerLink="/auth/login">Already have an account? Sign In</a>
+              <a routerLink="/auth/forgot-password">Forgot Password?</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
 
-<router-outlet></router-outlet>
+
 
