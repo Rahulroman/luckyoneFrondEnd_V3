@@ -10,12 +10,11 @@ import { AuthService } from '../../../Services/auth.service';
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule ],
+  imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './register.component.html',
-  styleUrl: './register.component.scss'
+  styleUrl: './register.component.scss',
 })
 export class RegisterComponent {
-
   private toaster = inject(NotificationService);
   private loaderService = inject(LoadingService);
   private authService = inject(AuthService);
@@ -23,7 +22,7 @@ export class RegisterComponent {
   CpasswordHash = '';
   isLoading = false;
 
-imagePreview: string | ArrayBuffer | null = null;
+  imagePreview: string | ArrayBuffer | null = null;
 
   user: RegisterRequestDto = {
     username: '',
@@ -31,77 +30,61 @@ imagePreview: string | ArrayBuffer | null = null;
     firstName: '',
     lastName: '',
     avatarImage: null,
-    passwordHash: ''
+    passwordHash: '',
   };
 
-
-onFileSelected(event: Event) { 
-   const input = event.target as HTMLInputElement;
+  onFileSelected(event: Event) {
+    const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
-        const file = input.files[0];
-        this.user.avatarImage = file;
+      const file = input.files[0];
+      this.user.avatarImage = file;
 
-         const reader = new FileReader();
-    reader.onload = () => {
-      this.imagePreview = reader.result;
-    };
-    reader.readAsDataURL(file);
-
-}
-
-}
-
-
-
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.imagePreview = reader.result;
+      };
+      reader.readAsDataURL(file);
+    }
+  }
 
   RegisterUser() {
-
     this.loaderService.showLoader();
 
-    if(this.user.username == "" || this.user.passwordHash == "" ){
-        this.loaderService.hideLoader();
-        this.toaster.showErrorMessage("Enter Username and Password")
+    if (this.user.username == '' || this.user.passwordHash == '') {
+      this.loaderService.hideLoader();
+      this.toaster.showErrorMessage('Enter Username and Password');
       return;
     }
 
-
     const formData = new FormData();
 
-  formData.append('username', this.user.username);
-  formData.append('email', this.user.email ?? '');
-  formData.append('firstName', this.user.firstName ?? '');
-  formData.append('lastName', this.user.lastName ?? '');
-  formData.append('passwordHash', this.user.passwordHash);
+    formData.append('username', this.user.username);
+    formData.append('email', this.user.email ?? '');
+    formData.append('firstName', this.user.firstName ?? '');
+    formData.append('lastName', this.user.lastName ?? '');
+    formData.append('passwordHash', this.user.passwordHash);
 
-  if (this.user.avatarImage) {
-    formData.append('avatarImage', this.user.avatarImage);
+    if (this.user.avatarImage) {
+      formData.append('avatarImage', this.user.avatarImage);
+    }
+
+    this.authService.register('register', this.user).subscribe({
+      next: (res) => {
+        if (res.isSuccess == false) {
+          this.loaderService.hideLoader();
+          this.toaster.showErrorMessage(res.message);
+          return;
+        }
+        else {
+          this.loaderService.hideLoader();
+          this.toaster.showSuccessMessage('Registration Successful');
+
+        }
+      },
+      error: (error) => {
+        this.loaderService.hideLoader();
+        this.toaster.showErrorMessage(error.error);
+      },
+    });
   }
-
-
-  this.authService.register("register" , this.user).subscribe({
-  next : (response) => { 
-    this.loaderService.hideLoader();
-    this.toaster.showSuccessMessage(response.Message);
-  },
-  error :(error) => {
-     this.loaderService.hideLoader();
-     this.toaster.showErrorMessage(error.error);
-  }
-  });
-
-  }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

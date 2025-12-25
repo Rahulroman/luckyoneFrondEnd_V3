@@ -24,6 +24,6 @@ export interface RegisterRequestDto {
 }
 
 export interface ApiResponseResgisterDto {
-    IsSuccess: boolean,
-    Message: string
+    isSuccess: boolean,
+    message: string
 }
