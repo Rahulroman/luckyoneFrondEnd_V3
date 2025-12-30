@@ -1,4 +1,4 @@
-  .register-form {
+  .login-form {
       h2 {
         font-size: 2rem;
         font-weight: 600;
@@ -12,14 +12,8 @@
       }
     }
     
-    .form-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-    }
-    
     .form-group {
-      //margin-bottom: 1.5rem;
+      margin-bottom: 1.5rem;
       
       label {
         display: block;
@@ -54,36 +48,10 @@
       }
     }
     
-    .terms {
-      display: flex;
-      align-items: flex-start;
-      gap: 0.5rem;
-      
-      input[type="checkbox"] {
-        margin-top: 0.25rem;
-      }
-      
-      label {
-        margin-bottom: 0;
-        font-size: 0.875rem;
-        color: #666;
-        
-        a {
-          color: #3498db;
-          text-decoration: none;
-          
-          &:hover {
-            text-decoration: underline;
-          }
-        }
-      }
-    }
-    
     .btn {
       width: 100%;
       padding: 0.875rem;
-      margin-top: 20px;;
-      background: #2ecc71;
+      background: #3498db;
       color: white;
       border: none;
       border-radius: 6px;
@@ -93,7 +61,7 @@
       transition: all 0.3s ease;
       
       &:hover:not(:disabled) {
-        background: #27ae60;
+        background: #2980b9;
       }
       
       &:disabled {

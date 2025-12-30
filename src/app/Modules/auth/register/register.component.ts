@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterLink, RouterModule } from '@angular/router';
+import { Router, RouterLink, RouterModule } from '@angular/router';
 import { RegisterRequestDto } from '../../../Core/Models/auth.model';
 import { NotificationService } from '../../../Services/notification.service';
 import { LoadingService } from '../../../Services/loading.service';
@@ -18,7 +18,7 @@ export class RegisterComponent {
   private toaster = inject(NotificationService);
   private loaderService = inject(LoadingService);
   private authService = inject(AuthService);
-
+ constructor( private router : Router  ){}
   CpasswordHash = '';
   isLoading = false;
 
@@ -36,6 +36,7 @@ export class RegisterComponent {
   onFileSelected(event: Event) {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
+      
       const file = input.files[0];
       this.user.avatarImage = file;
 
@@ -58,26 +59,28 @@ export class RegisterComponent {
 
     const formData = new FormData();
 
-    formData.append('username', this.user.username);
-    formData.append('email', this.user.email ?? '');
-    formData.append('firstName', this.user.firstName ?? '');
-    formData.append('lastName', this.user.lastName ?? '');
-    formData.append('passwordHash', this.user.passwordHash);
+    formData.append('Username', this.user.username);
+    formData.append('Email', this.user.email ?? '');
+    formData.append('FirstName', this.user.firstName ?? '');
+    formData.append('LastName', this.user.lastName ?? '');
+    formData.append('PasswordHash', this.user.passwordHash);
 
     if (this.user.avatarImage) {
-      formData.append('avatarImage', this.user.avatarImage);
+      formData.append('AvatarImage', this.user.avatarImage);
     }
 
-    this.authService.register('register', this.user).subscribe({
+    this.authService.register('Auth/register', formData).subscribe({
       next: (res) => {
         if (res.isSuccess == false) {
           this.loaderService.hideLoader();
           this.toaster.showErrorMessage(res.message);
+       
           return;
         }
         else {
           this.loaderService.hideLoader();
           this.toaster.showSuccessMessage('Registration Successful');
+             this.router.navigate(["Auth/login"]);
 
         }
       },

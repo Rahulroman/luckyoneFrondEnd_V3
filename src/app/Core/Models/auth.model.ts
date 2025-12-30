@@ -27,3 +27,15 @@ export interface ApiResponseResgisterDto {
     isSuccess: boolean,
     message: string
 }
+
+export interface LoginRequest {
+  username : string,
+  password : string
+}
+
+export interface ApiResponselogin {
+      isSuccess : boolean,
+      message : string,
+      token : string,
+      user : User
+}
